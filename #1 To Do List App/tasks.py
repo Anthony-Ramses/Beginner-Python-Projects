@@ -6,7 +6,6 @@ class Tasks:
 
 class TaskOperations:
     def __init__(self):
-        self.lists = []
         self.tasks = []
 
     def create_tasks(self, name, description):
@@ -49,6 +48,32 @@ class TaskOperations:
                 return
         raise ValueError(f'No task named [{name}] found.')
     
+    def sort_task(self, by):
+        if self.tasks:
+            if by == 'name':
+                name_sort = sorted(self.tasks, key=lambda x: x.name)
+                for t in name_sort:
+                    print(f'Name: {t.name}\nDescription: {t.description}\n')
+            elif by == 'description':
+                description_sort = sorted(self.tasks, key=lambda x: x.description)
+                for t in description_sort:
+                    print(f'Name: {t.name}\nDescription: {t.description}\n')
+            else:
+                print('Not such option')
+    
+    def filter_task(self, by, letter):
+        if self.tasks:
+            if by == 'name':
+                name_filter = list(filter(lambda x: x.name.startswith(letter), self.tasks))
+                for t in name_filter:
+                    print(f'Name: {t.name}\nDescription: {t.description}\n')
+            elif by == 'description':
+                description_filter = list(filter(lambda x: x.description.startswith(letter), self.tasks))
+                for t in description_filter:
+                    print(f'Name: {t.name}\nDescription: {t.description}\n')
+
+                        
+                
 
 
 

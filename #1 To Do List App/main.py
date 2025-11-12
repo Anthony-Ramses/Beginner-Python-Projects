@@ -3,9 +3,9 @@ from tasks import TaskOperations
 
 if __name__ == '__main__':
     app = TaskOperations()
-    i = 0
-    while i < 10:
-        print('1. Create task\n2. Read task\n3. Update task\n4. Read all tasks\n5. Delete task')
+
+    while True:
+        print('1. Create task\n2. Read task\n3. Update task\n4. Read all tasks\n5. Delete task\n6. Sort task\n7. Filter task\n')
         try:
             ans = int(input('Choose an option: '))
         except ValueError:
@@ -40,7 +40,18 @@ if __name__ == '__main__':
                 app.delete_tasks(name)
             except ValueError as e:
                 print('Error:', e)
+        elif ans == 6:
+            by = input('Enter sort condition: ')
+            try:
+                app.sort_task(by)
+            except ValueError as e:
+                print('Error:', e)
+        elif ans == 7:
+            by = input('Enter filter condition: ')
+            letter = input('Enter the letter: ')
+            try:
+                app.filter_task(by, letter)
+            except Exception as e:
+                print('Error:', e)
         else:
             print('Unknown option.')
-
-        i += 1
