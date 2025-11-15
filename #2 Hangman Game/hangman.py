@@ -21,7 +21,7 @@ class Hangman:
     def __init__(self):
         self.underscores = ''
         self.word = ''
-        self.attempts = 7
+        self.attempts = 0
         self.score = 0
         self.level = 1
 
@@ -31,6 +31,7 @@ class Hangman:
         underscores = ['_'] * len(word)
         self.underscores = underscores
         self.word = word
+        self.attempts = len(word) + 2 # The number of errors acceptable for each word
         return choice, word, underscores
 
     def validate_choice(self, choice):
@@ -44,8 +45,6 @@ class Hangman:
                 if letter == choice:
                     self.underscores[index] = choice
                     self.score += 10
-                else:
-                    self.attempts -= 1
         else:
             print("Invalid choice. Please enter a single letter A-Z.")
         return self.underscores
@@ -53,7 +52,6 @@ class Hangman:
     def check_win(self):
         if self.attempts > 0:
             if '_' not in self.underscores:
-                self.level += 1
                 return True
         elif self.attempts <= 0:
             self.level = 1
@@ -64,6 +62,7 @@ class Hangman:
         if self.check_win() is True:
             self.level += 1
             self.score += self.attempts * 5
+            print(' '.join(self.underscores[i] for i in range(len(self.underscores))))
             print(f"Congratulations! You've advanced to level {self.level}.")
             print(f"Your score is now {self.score}.")
         elif self.check_win() == 'Lose':
